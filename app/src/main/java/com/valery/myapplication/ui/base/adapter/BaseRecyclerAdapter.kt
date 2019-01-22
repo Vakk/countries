@@ -31,9 +31,9 @@ abstract class BaseRecyclerAdapter<Item, VH : BaseViewHolder<Item>>(adapterClick
     protected fun getItem(index: Int): Item = items[index]
 
     /**
-     * This method will update current list by @param newList.
+     * This method will updateList current list by @param newList.
      */
-    fun update(newList: List<Item>, diffUtilCallback: BaseDiffUtilCallback<Item>? = null) {
+    fun updateList(newList: List<Item>, diffUtilCallback: BaseDiffUtilCallback<Item>? = null) {
         if (diffUtilCallback == null) {
             items = newList.toMutableList()
             notifyDataSetChanged()

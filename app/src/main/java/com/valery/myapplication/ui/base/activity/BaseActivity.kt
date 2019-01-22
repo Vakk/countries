@@ -11,28 +11,39 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract val containerId: Int // here is fragment container id. Preferable to use the activity as just a container for some content.
 
+    private val mainFragmentManager: FragmentManager
+        get() = supportFragmentManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
-        if (supportFragmentManager.fragments.firstOrNull() == null) {
+        if (mainFragmentManager.fragments.firstOrNull() == null) {
             onLoadInitialContent()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (mainFragmentManager.fragments.size == 1) { // we have latest fragment in stack, so we should close this screen for avoid empty screen.
+            finish()
+        } else {
+            super.onBackPressed()
         }
     }
 
     /**
      * You should use this method for show fragments. This allows easier tracking of current screen for reproduce issues and bugs.
      *
-     * @param forceUpdateFragment - if you want to do force update (and ignore exists fragment of current class in stack) - set this flag to "true", otherwise this will use exists fragment instance (by tag).
+     * @param forceUpdateFragment - if you want to do force updateList (and ignore exists fragment of current class in stack) - set this flag to "true", otherwise this will use exists fragment instance (by tag).
      */
     protected fun <T : BaseFragment> replaceFragment(
         fragment: T,
         tag: String = fragment.javaClass.name,
         containerId: Int = this.containerId,
-        fragmentManager: FragmentManager = supportFragmentManager!!,
+        fragmentManager: FragmentManager = mainFragmentManager,
         needToUseBackStack: Boolean = true,
         forceUpdateFragment: Boolean = false
     ) {
-        if (!forceUpdateFragment && fragmentManager.findFragmentByTag(tag) != null) { // we have fragment with this tag in stack and force update is disabled, so we should ignore this call.
+        if (!forceUpdateFragment && fragmentManager.findFragmentByTag(tag) != null) { // we have fragment with this tag in stack and force updateList is disabled, so we should ignore this call.
             return
         }
         val transaction = fragmentManager.beginTransaction()

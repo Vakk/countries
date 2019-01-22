@@ -17,6 +17,7 @@ abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Clas
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prepareViewModel()
+        onPrepareObservers()
     }
 
     private fun prepareViewModel() {
@@ -25,7 +26,15 @@ abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Clas
         onFirstViewModelInit = null // remove this callback. View model is already initialized.
     }
 
+    /**
+     * Notifies when view view model is ready and you can bind to values.
+     */
+    protected open fun onPrepareObservers() {
+
+    }
+
     protected fun <F> LiveData<F>.observe(observer: Observer<F>) { // just for simplify using of default owner.
         observe(this@BaseMvvmFragment, observer)
     }
+
 }
