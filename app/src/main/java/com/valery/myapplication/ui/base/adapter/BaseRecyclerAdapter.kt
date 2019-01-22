@@ -39,7 +39,9 @@ abstract class BaseRecyclerAdapter<Item, VH : BaseViewHolder<Item>>(adapterClick
             notifyDataSetChanged()
         } else {
             diffUtilCallback.oldList = items
+            diffUtilCallback.newList = newList
             DiffUtil.calculateDiff(diffUtilCallback).dispatchUpdatesTo(this)
+            items = newList.toMutableList()
         }
     }
 

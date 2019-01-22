@@ -18,6 +18,7 @@ class CountriesViewModel : BaseDaggerRxViewModel() {
     lateinit var countriesProvider: CountriesProvider
 
     private var countries: MutableList<CountryModel> = mutableListOf()
+    private var query: String = ""
 
     init {
         daggerManager.sessionComponent?.inject(this)
@@ -33,7 +34,28 @@ class CountriesViewModel : BaseDaggerRxViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess { countries = it.toMutableList() }
-            .doOnSuccess { onCountriesLoaded.value = it }
+            .doOnSuccess { search(query) }
+            .subscribe(onSuccess, onError)
+            .addTo(disposableBag)
+    }
+
+    fun search(query: String) {
+        this.query = query
+        Single.fromCallable {
+            if (!query.isEmpty()) {
+                countries.filter {
+                    it.name.toLowerCase().contains(query.toLowerCase())
+                            || it.nativeName.toLowerCase().contains(query.toLowerCase())
+                }
+            } else {
+                countries
+            }
+        }.map { it.take(100) } // optimization of output. Here cna be to much of results, so we will take only some elements.
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.newThread())
+            .doOnSuccess {
+                onCountriesLoaded.value = it
+            }
             .subscribe(onSuccess, onError)
             .addTo(disposableBag)
     }

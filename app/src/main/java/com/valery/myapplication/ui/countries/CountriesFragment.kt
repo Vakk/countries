@@ -6,10 +6,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.View
 import com.valery.myapplication.R
 import com.valery.myapplication.model.CountryModel
 import com.valery.myapplication.ui.adapters.CountriesAdapter
+import com.valery.myapplication.ui.adapters.CountriesDiffUtil
 import com.valery.myapplication.ui.base.DividerItemDecorator
 import com.valery.myapplication.ui.base.adapter.AdapterClickListener
 import com.valery.myapplication.ui.base.mvvm.BaseMvvmFragment
@@ -52,7 +54,7 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
         super.onPrepareObservers()
         viewModel.onCountriesLoaded.observe(Observer {
             it?.let {
-                adapter.updateList(it)
+                adapter.updateList(it, CountriesDiffUtil())
             }
         })
     }
@@ -60,6 +62,17 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareList()
+
+        svSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return onQueryTextSubmit(newText)
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.search(query ?: "")
+                return true
+            }
+        })
     }
 
     fun prepareList() {

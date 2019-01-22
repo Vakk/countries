@@ -2,7 +2,7 @@ package com.valery.myapplication.ui.base.adapter
 
 import android.support.v7.util.DiffUtil
 
-abstract class BaseDiffUtilCallback<T>(var oldList: List<T>, var newList: List<T>) : DiffUtil.Callback() {
+abstract class BaseDiffUtilCallback<T>(var oldList: List<T> = emptyList(), var newList: List<T> = emptyList()) : DiffUtil.Callback() {
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return areContentsTheSame(oldList[oldItemPosition], newList[newItemPosition])
     }
