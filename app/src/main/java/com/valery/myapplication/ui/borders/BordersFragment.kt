@@ -15,7 +15,7 @@ import com.valery.myapplication.ui.main.MainView
 import kotlinx.android.synthetic.main.fragment_borders.*
 
 class BordersFragment : BaseMvvmFragment<BordersViewModel>(BordersViewModel::class.java),
-    AdapterClickListener<CountryModel>, View.OnClickListener {
+        AdapterClickListener<CountryModel>, View.OnClickListener {
 
     companion object {
         fun newInstance(bordersFor: CountryModel): BordersFragment {
@@ -31,7 +31,7 @@ class BordersFragment : BaseMvvmFragment<BordersViewModel>(BordersViewModel::cla
 
     private val adapter: CountriesAdapter by lazy {
         CountriesAdapter(
-            this
+                this
         )
     }
     private var mainView: MainView? = null
@@ -71,22 +71,15 @@ class BordersFragment : BaseMvvmFragment<BordersViewModel>(BordersViewModel::cla
         rvContent.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         rvContent.adapter = adapter
         rvContent.addItemDecoration(
-            DividerItemDecorator(
-                context!!,
-                colorAttr = R.attr.divider1
-            )
+                DividerItemDecorator(
+                        context!!,
+                        colorAttr = R.attr.divider1
+                )
         )
     }
 
     override fun onClick(view: View, item: CountryModel) {
-        if (item.borders.isNotEmpty()) {
-            mainView?.openBorders(
-                item, arrayOf(
-//                    view to getString(R.string.transition_name)
-                )
-            )
-            onPause()
-        }
+       // no need to implement for now.
     }
 
     override fun onClick(v: View?) {

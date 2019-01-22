@@ -75,9 +75,11 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
         if (item.borders.isNotEmpty()) {
             mainView?.openBorders(
                 item, arrayOf(
-//                    view to getString(R.string.transition_name)
+                    view to getString(R.string.transition_name)
                 )
             )
+        } else {
+            showMessage("This country does not have any borders.")
         }
     }
 }
