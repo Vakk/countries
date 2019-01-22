@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import com.valery.myapplication.ui.base.fragment.BaseFragment
 import com.valery.myapplication.ui.base.mvvm.viewmodel.BaseViewModel
 import com.valery.myapplication.ui.main.ProgressController
@@ -31,6 +32,10 @@ abstract class BaseMvvmFragment<VM : BaseViewModel>(private val viewModelClass: 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prepareViewModel()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         onPrepareObservers()
     }
 
