@@ -2,8 +2,8 @@ package com.valery.myapplication.ui.base.activity
 
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.valery.myapplication.ui.base.fragment.BaseFragment
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -40,16 +40,21 @@ abstract class BaseActivity : AppCompatActivity() {
         tag: String = fragment.javaClass.name,
         containerId: Int = this.containerId,
         fragmentManager: FragmentManager = mainFragmentManager,
-        forceUpdateFragment: Boolean = false
+        forceUpdateFragment: Boolean = false,
+        sharedViewTransitionsArray: Array<Pair<View, String>> = emptyArray()
     ) {
         val existsFragment = fragmentManager.findFragmentByTag(tag)
         if (!forceUpdateFragment && existsFragment != null) {
             return
         }
-        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.addToBackStack(tag)
-        transaction.replace(containerId, fragment, tag)
-        transaction.commit()
+        fragmentManager.beginTransaction().apply {
+            addToBackStack(tag)
+            for (transitionPair in sharedViewTransitionsArray) {
+                addSharedElement(transitionPair.first, transitionPair.second)
+            }
+            replace(containerId, fragment, tag)
+            commit()
+        }
     }
 
     open fun onLoadInitialContent() {

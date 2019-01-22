@@ -1,4 +1,4 @@
-package com.valery.myapplication.ui.countries
+package com.valery.myapplication.ui.borders
 
 import android.arch.lifecycle.Observer
 import android.content.Context
@@ -12,22 +12,22 @@ import com.valery.myapplication.ui.base.DividerItemDecorator
 import com.valery.myapplication.ui.base.adapter.AdapterClickListener
 import com.valery.myapplication.ui.base.mvvm.BaseMvvmFragment
 import com.valery.myapplication.ui.main.MainView
-import kotlinx.android.synthetic.main.fragment_countries.*
+import kotlinx.android.synthetic.main.fragment_borders.*
 
-class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewModel::class.java),
-    AdapterClickListener<CountryModel> {
+class BordersFragment : BaseMvvmFragment<BordersViewModel>(BordersViewModel::class.java),
+    AdapterClickListener<CountryModel>, View.OnClickListener {
 
     companion object {
-        fun newInstance(): CountriesFragment {
-            return CountriesFragment().apply {
+        fun newInstance(bordersFor: CountryModel): BordersFragment {
+            return BordersFragment().apply {
                 onFirstViewModelInit = {
-                    init()
+                    init(bordersFor)
                 }
             }
         }
     }
 
-    override val layoutId: Int = R.layout.fragment_countries
+    override val layoutId: Int = R.layout.fragment_borders
 
     private val adapter: CountriesAdapter by lazy {
         CountriesAdapter(
@@ -53,11 +53,18 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
                 adapter.updateList(it)
             }
         })
+
+        viewModel.onCountryInfoReady.observe(Observer {
+            it?.let {
+                tvTitle.text = it.nativeName
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prepareList()
+        ivBack.setOnClickListener(this)
     }
 
     fun prepareList() {
@@ -78,6 +85,13 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
 //                    view to getString(R.string.transition_name)
                 )
             )
+            onPause()
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ivBack -> onBackPressed()
         }
     }
 }

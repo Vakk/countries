@@ -42,6 +42,10 @@ abstract class BaseFragment : Fragment() {
         transaction.commit()
     }
 
+    protected open fun onBackPressed() {
+        activity?.onBackPressed()
+    }
+
     protected inline fun <reified T> bindInterfaceOrThrow(vararg objects: Any?): T = objects.find { it is T }?.let { it as T } ?: throw RuntimeException(T::class.java.name)
 
 }

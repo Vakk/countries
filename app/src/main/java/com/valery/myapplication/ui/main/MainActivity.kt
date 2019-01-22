@@ -1,8 +1,10 @@
 package com.valery.myapplication.ui.main
 
+import android.view.View
 import com.valery.myapplication.R
 import com.valery.myapplication.model.CountryModel
 import com.valery.myapplication.ui.base.activity.BaseActivity
+import com.valery.myapplication.ui.borders.BordersFragment
 import com.valery.myapplication.ui.countries.CountriesFragment
 
 class MainActivity : BaseActivity(), MainView {
@@ -19,11 +21,11 @@ class MainActivity : BaseActivity(), MainView {
         replaceFragment(CountriesFragment.newInstance())
     }
 
-    override fun openBorders(countryModel: CountryModel) {
+    override fun openBorders(countryModel: CountryModel, transitionPairs: Array<Pair<View, String>>) {
         replaceFragment(
-            CountriesFragment.newInstance(countryModel),
-            tag = "CountriesFragmentNested",
-            forceUpdateFragment = true
+            BordersFragment.newInstance(countryModel),
+            forceUpdateFragment = true,
+            sharedViewTransitionsArray = transitionPairs
         ) // this screen will ignore stack, so user can open a lot of countries and memory will clear.
     }
 }

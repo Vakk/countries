@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.View
 import com.valery.myapplication.ui.base.fragment.BaseFragment
 
 abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Class<VM>) : BaseFragment() {
@@ -18,6 +19,10 @@ abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Clas
         super.onCreate(savedInstanceState)
         prepareViewModel()
         onPrepareObservers()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun prepareViewModel() {
