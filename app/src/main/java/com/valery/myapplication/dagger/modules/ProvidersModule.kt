@@ -5,6 +5,7 @@ import com.valery.myapplication.converters.CountryBeanConverter
 import com.valery.myapplication.dagger.scope.SessionScope
 import com.valery.myapplication.providers.CountriesProvider
 import com.valery.myapplication.providers.CountriesProviderImpl
+import com.valery.myapplication.repository.CountriesRepository
 import dagger.Module
 import dagger.Provides
 
@@ -15,10 +16,12 @@ class ProvidersModule {
     @Provides
     fun provideCountriesProvider(
         countriesModule: CountriesApiModule,
-        countryBeanConverter: CountryBeanConverter
+        countryBeanConverter: CountryBeanConverter,
+        countriesRepository: CountriesRepository
     ): CountriesProvider = CountriesProviderImpl(
         countriesModule = countriesModule,
-        countryBeanConverter = countryBeanConverter
+        countryBeanConverter = countryBeanConverter,
+        countriesRepository = countriesRepository
     )
 
 }

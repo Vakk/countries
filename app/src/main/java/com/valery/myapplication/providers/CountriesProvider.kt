@@ -3,6 +3,7 @@ package com.valery.myapplication.providers
 import com.valery.myapplication.api.modules.CountriesApiModule
 import com.valery.myapplication.converters.CountryBeanConverter
 import com.valery.myapplication.model.CountryModel
+import com.valery.myapplication.repository.CountriesRepository
 import io.reactivex.Single
 
 interface CountriesProvider {
@@ -10,6 +11,7 @@ interface CountriesProvider {
 }
 
 class CountriesProviderImpl(
+    private val countriesRepository: CountriesRepository,
     private val countriesModule: CountriesApiModule,
     private val countryBeanConverter: CountryBeanConverter
 ) : CountriesProvider {
