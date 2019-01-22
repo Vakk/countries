@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.valery.myapplication.R
 import com.valery.myapplication.model.CountryModel
+import com.valery.myapplication.ui.base.DividerItemDecorator
 import com.valery.myapplication.ui.base.adapter.AdapterClickListener
 import com.valery.myapplication.ui.base.mvvm.BaseMvvmFragment
 import kotlinx.android.synthetic.main.fragment_countries.*
@@ -40,6 +41,12 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
     fun prepareList() {
         rvContent.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         rvContent.adapter = adapter
+        rvContent.addItemDecoration(
+            DividerItemDecorator(
+                context!!,
+                colorAttr = R.attr.divider1
+            )
+        )
     }
 
     override fun onClick(view: View, item: CountryModel) {

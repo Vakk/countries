@@ -8,6 +8,8 @@
 
         <item name="view1">@style/View.1</item>
 
+        <item name="divider1">@color/colorPrimary</item>
+
         <item name="text1">@style/TextView.1</item>
 
         <item name="toolbar1">@style/Toolbar.1</item>
