@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- region Text view. -->
+    <style name="TextView" parent="TextAppearance.AppCompat"/>
+    <style name="TextView.1" parent="TextView">
+        <item name="android:textColor">#000</item>
+        <item name="android:fontFamily">@font/IndieFlower</item>
+    </style>
+
+    <!-- endregion -->
+
+    <!-- region Toolbar. -->
+    <style name="Toolbar" parent="Base.V7.Widget.AppCompat.Toolbar"/>
+
+    <style name="Toolbar.1" parent="Toolbar">
+        <item name="titleTextAppearance">@style/TextView.1</item>
+    </style>
+    <!-- endregion -->
+
+    <!-- Views. -->
+    <style name="View"/>
+    <style name="View.1">
+        <item name="android:background">#fff</item>
+    </style>
+    <!-- endregion -->
+</resources>

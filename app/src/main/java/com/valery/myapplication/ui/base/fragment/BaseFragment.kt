@@ -11,7 +11,8 @@ abstract class BaseFragment : Fragment() {
 
     abstract val layoutId: Int
 
-    abstract val containerId: Int // here is fragment container id. Preferable to use the activity as just a container for some content.
+    open val containerId: Int =
+        0// here is fragment container id. Preferable to use the activity as just a container for some content.
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(

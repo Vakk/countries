@@ -5,11 +5,12 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import com.valery.myapplication.ui.base.fragment.BaseFragment
 
-abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Class<VM>) : Fragment() {
+abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Class<VM>) : BaseFragment() {
 
-    var onFirstViewModelInit: ((VM) -> Unit)? = null // can be used for inject some objects (f.e: we want to open some info screen with loaded model).
+    var onFirstViewModelInit: ((VM) -> Unit)? =
+        null // can be used for inject some objects (f.e: we want to open some info screen with loaded model).
 
     protected lateinit var viewModel: VM // you can access view model of this fragment by this property. This property will be initialized during view lifecycle.
 

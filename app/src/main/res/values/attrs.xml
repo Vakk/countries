@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="view1" format="reference"/>
+
+    <attr name="text1" format="reference"/>
+
+    <attr name="toolbar1" format="reference"/>
+</resources>
