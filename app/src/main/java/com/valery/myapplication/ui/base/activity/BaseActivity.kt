@@ -14,6 +14,9 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutId)
+        if (supportFragmentManager.fragments.firstOrNull() == null) {
+            onLoadInitialContent()
+        }
     }
 
     /**
@@ -32,5 +35,9 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         transaction.replace(containerId, fragment, tag)
         transaction.commit()
+    }
+
+    open fun onLoadInitialContent() {
+
     }
 }

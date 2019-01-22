@@ -33,10 +33,14 @@ abstract class BaseRecyclerAdapter<Item, VH : BaseViewHolder<Item>>(adapterClick
     /**
      * This method will update current list by @param newList.
      */
-    fun update(newList: List<Item>, diffUtilCallback: BaseDiffUtilCallback<Item>) {
-        diffUtilCallback.oldList = items
-        DiffUtil.calculateDiff(diffUtilCallback).dispatchUpdatesTo(this)
-        items = newList.toMutableList()
+    fun update(newList: List<Item>, diffUtilCallback: BaseDiffUtilCallback<Item>? = null) {
+        if (diffUtilCallback == null) {
+            items = newList.toMutableList()
+            notifyDataSetChanged()
+        } else {
+            diffUtilCallback.oldList = items
+            DiffUtil.calculateDiff(diffUtilCallback).dispatchUpdatesTo(this)
+        }
     }
 
 }
