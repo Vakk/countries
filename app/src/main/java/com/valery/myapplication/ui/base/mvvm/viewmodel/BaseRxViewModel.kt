@@ -16,6 +16,7 @@ abstract class BaseRxViewModel : BaseViewModel() {
     }
 
     protected val onError = Consumer<Throwable> {
+        it?.printStackTrace()
         showMessage(it.message ?: "Something went wrong.")
     }
 

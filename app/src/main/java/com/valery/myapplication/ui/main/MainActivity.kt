@@ -24,20 +24,20 @@ class MainActivity : BaseActivity(), MainView, ProgressController,
         replaceFragment(CountriesFragment.newInstance())
     }
 
-    override fun openBorders(countryModel: CountryModel, transitionPairs: Array<Pair<View, String>>) {
+    override fun openBorders(countryModel: CountryModel, sharedViews: Array<View>) {
         replaceFragment(
                 BordersFragment.newInstance(countryModel),
                 forceUpdateFragment = true,
-                sharedViewTransitionsArray = transitionPairs
+                sharedViews = sharedViews
         ) // this screen will ignore stack, so user can open a lot of countries and memory will clear.
     }
 
     override fun changeProgressViewStatus(isVisible: Boolean) {
-//        vsContent.displayedChild = if (isVisible) 1 else 0 // default implementation of this logic cna be changed.
+
     }
 
     override fun showMessage(message: String) {
-        Snackbar.make(vsContent, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(flContent, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun showMessage(messageId: Int) {

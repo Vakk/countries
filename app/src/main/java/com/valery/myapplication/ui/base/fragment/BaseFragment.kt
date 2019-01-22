@@ -1,8 +1,10 @@
 package com.valery.myapplication.ui.base.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,13 @@ abstract class BaseFragment : Fragment() {
     open val containerId: Int =
         0// here is fragment container id. Preferable to use the activity as just a container for some content.
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(
             layoutId,

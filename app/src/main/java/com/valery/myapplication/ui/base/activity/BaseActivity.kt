@@ -2,6 +2,7 @@ package com.valery.myapplication.ui.base.activity
 
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.valery.myapplication.ui.base.fragment.BaseFragment
@@ -36,22 +37,20 @@ abstract class BaseActivity : AppCompatActivity() {
      * @param forceUpdateFragment - if you want to do force update (and ignore exists fragment of current class in stack) - set this flag to "true", otherwise this will use exists fragment instance (by tag).
      */
     protected fun <T : BaseFragment> replaceFragment(
-        fragment: T,
-        tag: String = fragment.javaClass.name,
-        containerId: Int = this.containerId,
-        fragmentManager: FragmentManager = mainFragmentManager,
-        forceUpdateFragment: Boolean = false,
-        sharedViewTransitionsArray: Array<Pair<View, String>> = emptyArray()
+            fragment: T,
+            tag: String = fragment.javaClass.name,
+            containerId: Int = this.containerId,
+            fragmentManager: FragmentManager = mainFragmentManager,
+            forceUpdateFragment: Boolean = false,
+            sharedViews: Array<View> = emptyArray()
     ) {
         val existsFragment = fragmentManager.findFragmentByTag(tag)
         if (!forceUpdateFragment && existsFragment != null) {
             return
         }
         fragmentManager.beginTransaction().apply {
+            sharedViews.forEach { addSharedElement(it, ViewCompat.getTransitionName(it)) }
             addToBackStack(tag)
-            for (transitionPair in sharedViewTransitionsArray) {
-                addSharedElement(transitionPair.first, transitionPair.second)
-            }
             replace(containerId, fragment, tag)
             commit()
         }

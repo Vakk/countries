@@ -6,5 +6,5 @@ import com.valery.myapplication.model.CountryModel
 interface MainView {
     fun openCountriesList()
 
-    fun openBorders(countryModel: CountryModel, transitionPairs: Array<Pair<View, String>> = arrayOf())
+    fun openBorders(countryModel: CountryModel, sharedViews: Array<View> = arrayOf())
 }

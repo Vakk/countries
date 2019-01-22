@@ -15,7 +15,7 @@ import com.valery.myapplication.ui.main.MainView
 import kotlinx.android.synthetic.main.fragment_countries.*
 
 class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewModel::class.java),
-    AdapterClickListener<CountryModel> {
+        AdapterClickListener<CountryModel> {
 
     companion object {
         fun newInstance(): CountriesFragment {
@@ -31,7 +31,7 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
 
     private val adapter: CountriesAdapter by lazy {
         CountriesAdapter(
-            this
+                this
         )
     }
     private var mainView: MainView? = null
@@ -64,19 +64,18 @@ class CountriesFragment : BaseMvvmFragment<CountriesViewModel>(CountriesViewMode
         rvContent.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         rvContent.adapter = adapter
         rvContent.addItemDecoration(
-            DividerItemDecorator(
-                context!!,
-                colorAttr = R.attr.divider1
-            )
+                DividerItemDecorator(
+                        context!!,
+                        colorAttr = R.attr.divider1
+                )
         )
     }
 
     override fun onClick(view: View, item: CountryModel) {
         if (item.borders.isNotEmpty()) {
             mainView?.openBorders(
-                item, arrayOf(
-                    view to getString(R.string.transition_name)
-                )
+                    item,
+                    arrayOf(view.findViewById(R.id.tvCountryName))
             )
         } else {
             showMessage("This country does not have any borders.")

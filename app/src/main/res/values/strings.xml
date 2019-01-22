@@ -3,5 +3,5 @@
     <string name="fragment_countries_title">Countries</string>
 
 
-    <string name="transition_name">Name123</string>
+    <string name="transition_name">name</string>
 </resources>
