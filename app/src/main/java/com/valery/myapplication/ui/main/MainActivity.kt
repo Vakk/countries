@@ -22,7 +22,7 @@ class MainActivity : BaseActivity(), MainView {
     override fun openBorders(countryModel: CountryModel) {
         replaceFragment(
             CountriesFragment.newInstance(countryModel),
-            tag = "CountriesFragmentNested.",
+            tag = "CountriesFragmentNested",
             forceUpdateFragment = true
         ) // this screen will ignore stack, so user can open a lot of countries and memory will clear.
     }
