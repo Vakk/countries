@@ -1,4 +1,4 @@
-package com.valery.myapplication.ui.countries
+package com.valery.myapplication.ui.adapters
 
 import android.os.Bundle
 import android.view.View
@@ -14,7 +14,12 @@ class CountriesAdapter(listener: AdapterClickListener<CountryModel>) :
     BaseRecyclerAdapter<CountryModel, CountriesAdapter.ViewHolder>(listener) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(BaseViewHolder.prepareView(R.layout.item_country, parent), this)
+        return ViewHolder(
+            BaseViewHolder.prepareView(
+                R.layout.item_country,
+                parent
+            ), this
+        )
     }
 
     class ViewHolder(itemView: View, listener: AdapterClickListener<CountryModel>) :
@@ -27,7 +32,7 @@ class CountriesAdapter(listener: AdapterClickListener<CountryModel>) :
         }
 
         override fun onBind(item: CountryModel, payload: Bundle?) {
-            tvCountryName.text = item.name
+            tvCountryName.text = item.nativeName
         }
     }
 }

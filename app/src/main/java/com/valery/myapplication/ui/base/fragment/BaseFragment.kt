@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import java.lang.RuntimeException
 
 abstract class BaseFragment : Fragment() {
 
@@ -40,4 +41,7 @@ abstract class BaseFragment : Fragment() {
         transaction.replace(containerId, fragment, tag)
         transaction.commit()
     }
+
+    protected inline fun <reified T> bindInterfaceOrThrow(vararg objects: Any?): T = objects.find { it is T }?.let { it as T } ?: throw RuntimeException(T::class.java.name)
+
 }

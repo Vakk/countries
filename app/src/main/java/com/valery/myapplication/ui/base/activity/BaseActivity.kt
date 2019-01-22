@@ -23,10 +23,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (mainFragmentManager.fragments.size == 1) { // we have latest fragment in stack, so we should close this screen for avoid empty screen.
+        super.onBackPressed()
+        if (mainFragmentManager.fragments.size == 0) { // we have latest fragment in stack, so we should close this screen for avoid empty screen.
             finish()
-        } else {
-            super.onBackPressed()
         }
     }
 

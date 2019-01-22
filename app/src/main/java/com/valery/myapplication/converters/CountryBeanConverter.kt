@@ -8,7 +8,11 @@ interface CountryBeanConverter : Converter<CountryBean, CountryModel>
 class CountryBeanConverterImpl : BaseConverterImpl<CountryBean, CountryModel>(), CountryBeanConverter {
 
     override fun convert(input: CountryBean?): CountryModel? {
-        return input?.name?.let { CountryModel(it) }
+        return CountryModel().apply {
+            name = input?.name ?: ""
+            nativeName = input?.nativeName ?: ""
+            borders = input?.borders ?: emptyList()
+        }
     }
 
 }

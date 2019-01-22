@@ -6,10 +6,16 @@ import io.reactivex.Single
 
 interface CountriesApiModule {
     fun getAllCountries(): Single<List<CountryBean>>
+
+    fun getCountries(codes: List<String>): Single<List<CountryBean>>
 }
 
 class CountriesApiModuleImpl(private val countriesApiService: CountriesApiService) : CountriesApiModule {
     override fun getAllCountries(): Single<List<CountryBean>> {
         return countriesApiService.getAllCountries()
+    }
+
+    override fun getCountries(codes: List<String>): Single<List<CountryBean>> {
+        return countriesApiService.getCountries(codes)
     }
 }

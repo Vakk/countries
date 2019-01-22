@@ -9,7 +9,7 @@ import com.valery.myapplication.ui.base.fragment.BaseFragment
 
 abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Class<VM>) : BaseFragment() {
 
-    var onFirstViewModelInit: ((VM) -> Unit)? =
+    var onFirstViewModelInit: (VM.() -> Unit)? =
         null // can be used for inject some objects (f.e: we want to open some info screen with loaded model).
 
     protected lateinit var viewModel: VM // you can access view model of this fragment by this property. This property will be initialized during view lifecycle.
@@ -22,7 +22,7 @@ abstract class BaseMvvmFragment<VM : ViewModel>(private val viewModelClass: Clas
 
     private fun prepareViewModel() {
         viewModel = ViewModelProviders.of(this).get(viewModelClass)
-        onFirstViewModelInit?.invoke(viewModel)
+        onFirstViewModelInit?.invoke(viewModel).apply { }
         onFirstViewModelInit = null // remove this callback. View model is already initialized.
     }
 
